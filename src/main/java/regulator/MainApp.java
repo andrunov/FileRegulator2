@@ -40,9 +40,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Directory compares");
-        this.primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream( "/regulator/resources/images/appImage.png" )));
+        this.primaryStage.getIcons().add(new Image(String.valueOf(MainApp.class.getResource( "images/appImage.png" ))));
         initRootLayout(new Locale("ru","RU"));
-
         this.primaryStage.heightProperty().addListener(mainController.stageSizeListener);
         this.primaryStage.setWidth(AppPreferences.getMainWindowWidth());
         this.primaryStage.setHeight(AppPreferences.getMainWindowHeight());
@@ -61,10 +60,9 @@ public class MainApp extends Application {
     public void initRootLayout(Locale locale) {
         try {
             // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setResources(ResourceBundle.getBundle("regulator.resources.bundles.Locale", locale));
-            loader.setLocation(MainApp.class.getResource("view/MainView.fxml"));
-            rootLayout = (AnchorPane) loader.load();
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("MainView.fxml"));
+            loader.setResources(ResourceBundle.getBundle("regulator/bundles/Locale", locale));
+            rootLayout = loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -87,7 +85,7 @@ public class MainApp extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setResources(parentController.getResourceBundle());
-            loader.setLocation(MainApp.class.getResource("view/SettingsView.fxml"));
+            loader.setLocation(MainApp.class.getResource("SettingsView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create dialog window Stage.
